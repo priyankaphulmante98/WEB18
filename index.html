@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up And Log in page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Sign Up & Log In</h1>
+  <div id="input_container">
+    <form>
+        <label for="">Email :</label>
+        <br/>
+     <input id="email" placeholder="enter yor email"/>
+     <br/>
+
+     <label for="">mobile number :</label>
+     <br/>
+     <input id="mobile" placeholder="enter yor mobile number"/>
+     <br/>
+
+     <label for="">Password :</label>
+     <br/>
+     <input id="password" placeholder="enter yor password"/>
+     <br/>
+     <button id="signup">SIGN UP</button>
+
+    </form>
+ 
+
+
+</div>
+</body>
+</html>
+
+<script>
+   var arr=JSON.parse(localStorage.getItem("signup_data")) || [];
+
+   document.querySelector("#signup").addEventListener("click",myfunction);
+
+   function myfunction()
+   {
+       event.preventDefault();
+       var obj={};
+       obj.email=document.querySelector("#email").value;
+
+       obj.mobile=document.querySelector("#mobile").value;
+
+       obj.password=document.querySelector("#password").value;
+
+       if(obj.email=="")
+       {
+           alert("please enter email");
+       }
+       else if(obj.password=="")
+       {
+           alert("please enter password");
+       }
+       else
+       {
+        arr.push(obj)
+        alert("sigun up successful you can log in now");
+       }
+
+
+    //    console.log(arr);
+
+    localStorage.setItem("signup_data",JSON.stringify(arr));
+   }
+        var btn=document.createElement("button");
+        document.querySelector("form").append(btn);
+        btn.setAttribute("id",("login"));
+        btn.innerText="LOGIN"
+     document.querySelector("#login").addEventListener("click",mylogin);
+
+function mylogin()
+{
+    event.preventDefault();
+    var email=document.querySelector("#email").value;
+
+    var mobile=document.querySelector("#mobile").value;
+
+    var password=document.querySelector("#password").value; 
+    // console.log(email,password);
+
+    var login_data=JSON.parse(localStorage.getItem("signup_data"));
+
+
+     var status=false;
+     var email_flag=false;
+     var pass_flag=false;
+ var status=false;
+    login_data.filter(function(ele,index){
+
+     if(email==ele.email&&password==ele.password)
+     {
+         status=true;
+     }
+     if(email==ele.email&&email_flag==false)
+     {
+         email_flag=true;
+
+     }
+     if(password==ele.password&&pass_flag==false)
+     {
+         pass_flag=true;
+     }
+     return false;
+
+    })
+    if(status==true)
+    {
+        alert("Log in Successful");
+    }
+    else if(email_flag==false || pass_flag==false)
+    {
+        alert("Wrong credentials");
+    }
+
+
+
+}
+</script>
